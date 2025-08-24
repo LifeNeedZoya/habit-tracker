@@ -1,0 +1,46 @@
+# Binaries
+/bin/
+/build/
+/out/
+
+# Executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Go build cache
+*.out
+*.prof
+*.cover
+
+# Vendor
+/vendor/
+
+# Dependency directories (remove if using Go modules)
+Godeps/
+node_modules/
+
+# Go modules
+go.sum
+
+# IDEs and editors
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+/.env
+.env.local
