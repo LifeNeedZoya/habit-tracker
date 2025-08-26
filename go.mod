@@ -4,7 +4,10 @@ go 1.24.4
 
 require github.com/spf13/viper v1.20.1
 
-require github.com/mattn/go-colorable v0.1.13 // indirect
+require (
+	github.com/golang-jwt/jwt/v5 v5.3.0 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+)
 
 require (
 	github.com/bytedance/sonic v1.14.0 // indirect
