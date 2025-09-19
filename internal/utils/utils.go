@@ -1,9 +1,11 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/rs/zerolog/log"
 )
@@ -42,4 +44,44 @@ func VerifyToken(tokenString string) (*jwt.MapClaims, error) {
 	}
 
 	return nil, fmt.Errorf("invalid token")
+}
+
+func GetStrValFromContext(c *gin.Context, value string) (string, bool) {
+	valueStr, exists := c.Get(value)
+
+	if !exists {
+		return "", false
+	}
+
+	str, ok := valueStr.(string)
+	if !ok {
+		return "", false
+	}
+
+	return str, true
+
+}
+
+func GetUserIDFromContext(c *gin.Context) (string, error) {
+	userID, exists := c.Get("user_id")
+	if !exists {
+		return "", errors.New("user ID not found in context")
+	}
+
+	userIDStr, ok := userID.(string)
+	if !ok {
+		return "", errors.New("user ID is not a string")
+	}
+
+	return userIDStr, nil
+}
+
+func ParseCustomTime(timeStr string, defaultTimezone *time.Location) (time.Time, error) {
+	const layout = "2006-01-02 15:04:00"
+
+	parsedTime, err := time.ParseInLocation(layout, timeStr, defaultTimezone)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return parsedTime, nil
 }

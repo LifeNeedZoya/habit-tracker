@@ -27,6 +27,7 @@ func (r *userRepository) FindAll() ([]models.User, error) {
 
 func (r *userRepository) CreateUser(user *models.User) error {
 	return r.db.Create(&user).Error
+
 }
 
 func (r *userRepository) FindByEmail(user *models.User, email string) error {

@@ -20,13 +20,10 @@ type Habit struct {
 	ID          uint   `json:"id" gorm:"primaryKey"`
 	Name        string `json:"name" gorm:"not null" validate:"required,min=1,max=100"`
 	Description string `json:"description" gorm:"type:text"`
-	Color       string `json:"color" gorm:"default:#3b82f6"`
 
-	FrequencyType     FrequencyType `json:"frequency_type" gorm:"not null" validate:"required"`
-	FrequencyValue    int           `json:"frequency_value" gorm:"default:1"`
-	FrequencyInterval string        `json:"frequency_interval" gorm:"default:day"`
-	FlexibleMin       int           `json:"flexible_min" gorm:"default:0"`
-	FlexibleMax       int           `json:"flexible_max" gorm:"default:0"`
+	FrequencyType   FrequencyType `json:"frequency_type" gorm:"not null" validate:"required"`
+	FrequencyValue  int           `json:"frequency_value" gorm:"default:1"`
+	FrequencyInWeek int           `json:"frequency_in_week" `
 
 	IsActive  bool           `json:"is_active" gorm:"default:true"`
 	CreatedAt time.Time      `json:"created_at"`
@@ -34,6 +31,8 @@ type Habit struct {
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 
 	HabitLogs []HabitLog `json:"habit_logs,omitempty" gorm:"foreignKey:HabitID"`
+	UserID    uint       `json:"user_id" gorm:"not null"`
+	User      User       `json:"user" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type HabitLog struct {

@@ -27,7 +27,19 @@ func main() {
 	userService := services.NewUserService(userRepo)
 	userHandler := handlers.NewUserHandler(userService)
 
+	habitRepo := repository.NewHabitRepository(db)
+	habitService := services.NewHabitService(habitRepo)
+	habitHandler := handlers.NewHabitHandler(&habitService)
+
+	sessionRepo := repository.NewSessionRepository(db)
+	sessionService := services.NewSessionService(sessionRepo)
+	sessionHandler := handlers.NewSessionHandler(sessionService)
+
+	activityRepo := repository.NewActivityRepository(db)
+	activityService := services.NewActivityService(activityRepo)
+	activityHandler := handlers.NewActivityHandler(activityService)
+
 	r := gin.Default()
-	api.SetupRoutes(r, userHandler)
+	api.SetupRoutes(r, userHandler, habitHandler, sessionHandler, activityHandler)
 	r.Run(cfg.ServerAddress)
 }

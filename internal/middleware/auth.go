@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"errors"
 	"net/http"
 	"strings"
 
@@ -44,20 +43,6 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		c.Next()
 	}
-}
-
-func GetUserIDFromContext(c *gin.Context) (string, error) {
-	userID, exists := c.Get("user_id")
-	if !exists {
-		return "", errors.New("user ID not found in context")
-	}
-
-	userIDStr, ok := userID.(string)
-	if !ok {
-		return "", errors.New("user ID is not a string")
-	}
-
-	return userIDStr, nil
 }
 
 func AuthMiddlewareWithConfig(config AuthConfig) gin.HandlerFunc {

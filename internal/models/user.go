@@ -14,4 +14,7 @@ type User struct {
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
+
+	Habits     []Habit    `json:"habits,omitempty" gorm:"foreignKey:UserID"`
+	Activities []Activity `json:"activities,omitempty" gorm:"foreignKey:UserID"`
 }
